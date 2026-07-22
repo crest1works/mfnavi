@@ -51,9 +51,11 @@
   .empty-state h2 { font-family: 'M PLUS Rounded 1c', sans-serif; font-size: 17px; color: var(--ink); margin: 0 0 8px; }
   .empty-state p { font-size: 13.5px; line-height: 1.7; margin: 0; }
 
-  table { width: 100%; border-collapse: collapse; background: var(--paper); border-radius: 14px; overflow: hidden; border: 1px solid var(--line); }
-  thead th { text-align: left; font-size: 12px; font-weight: 700; color: var(--ink-soft); background: #F3EEE3; padding: 12px 16px; }
-  tbody td { padding: 14px 16px; font-size: 13.5px; border-top: 1px solid var(--line); vertical-align: top; }
+  .table-scroll { overflow-x: auto; border-radius: 14px; border: 1px solid var(--line); }
+  table { width: 100%; min-width: 680px; border-collapse: collapse; background: var(--paper); }
+  thead th { text-align: left; font-size: 12px; font-weight: 700; color: var(--ink-soft); background: #F3EEE3; padding: 12px 16px; white-space: nowrap; }
+  tbody td { padding: 14px 16px; font-size: 13.5px; border-top: 1px solid var(--line); vertical-align: top; white-space: nowrap; }
+  tbody td:last-child { white-space: normal; min-width: 220px; }
   tbody tr:hover { background: #FBF8F1; }
   .price-cell { font-family: 'M PLUS Rounded 1c', sans-serif; font-weight: 700; white-space: nowrap; }
   .arrow { color: var(--ink-soft); margin: 0 6px; }
@@ -78,13 +80,14 @@
 </header>
 
 <main>
-  <div class="empty-state" id="emptyState">
+  <div class="empty-state" id="emptyState" style="display:none;">
     <div class="icon">🏷️</div>
     <h2>まだ価格変更の記録がありません</h2>
     <p>LINEなどで価格変更の連絡が来たら、Notionの「価格変更履歴」に登録してください。<br>登録されると、ここに一覧として表示されます。</p>
   </div>
 
-  <table id="priceTable" style="display:none;">
+  <div class="table-scroll">
+  <table id="priceTable">
     <thead>
       <tr>
         <th>商品名</th>
@@ -94,8 +97,45 @@
         <th>備考</th>
       </tr>
     </thead>
-    <tbody id="priceTableBody"></tbody>
+    <tbody id="priceTableBody">
+      <tr>
+        <td>キティ保冷保温マルチバッグ</td>
+        <td><span class="maker-badge">モアセブン</span></td>
+        <td class="price-cell">¥2,590<span class="arrow">→</span>¥2,189<span class="diff-badge diff-down">-401円</span></td>
+        <td>2026/07/20</td>
+        <td>税抜1,990円／税込2,189円に訂正</td>
+      </tr>
+      <tr>
+        <td>日焼けキティ保冷保温マルチバッグ</td>
+        <td><span class="maker-badge">モアセブン</span></td>
+        <td class="price-cell">¥2,590<span class="arrow">→</span>¥2,189<span class="diff-badge diff-down">-401円</span></td>
+        <td>2026/07/20</td>
+        <td>税抜1,990円／税込2,189円に訂正</td>
+      </tr>
+      <tr>
+        <td>クロミ保冷保温マルチバッグ</td>
+        <td><span class="maker-badge">モアセブン</span></td>
+        <td class="price-cell">¥2,590<span class="arrow">→</span>¥2,189<span class="diff-badge diff-down">-401円</span></td>
+        <td>2026/07/20</td>
+        <td>税抜1,990円／税込2,189円に訂正</td>
+      </tr>
+      <tr>
+        <td>スヌーピー保冷保温マルチバッグ</td>
+        <td><span class="maker-badge">モアセブン</span></td>
+        <td class="price-cell">¥2,590<span class="arrow">→</span>¥2,189<span class="diff-badge diff-down">-401円</span></td>
+        <td>2026/07/20</td>
+        <td>税抜1,990円／税込2,189円に訂正</td>
+      </tr>
+      <tr>
+        <td>ズートピア保冷保温マルチバッグ</td>
+        <td><span class="maker-badge">モアセブン</span></td>
+        <td class="price-cell">¥2,590<span class="arrow">→</span>¥2,189<span class="diff-badge diff-down">-401円</span></td>
+        <td>2026/07/20</td>
+        <td>税抜1,990円／税込2,189円に訂正</td>
+      </tr>
+    </tbody>
   </table>
+  </div>
 </main>
 
 <footer>商品マスタ管理ハブより ／ Notionのデータをもとに作成</footer>
