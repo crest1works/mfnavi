@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>売価変更一覧｜商品マスタ管理</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #FAF8F3;
+    --ink: #241F1C;
+    --ink-soft: #6b6259;
+    --paper: #FFFFFF;
+    --navy: #A8386E;
+    --tag-red: #D8472B;
+    --tag-red-dark: #B23A22;
+    --line: #E7E0D4;
+    --down: #3D6E5A;
+    --down-bg: #E4EFE9;
+    --up: #B23A22;
+    --up-bg: #F7E7E2;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font-family: 'Noto Sans JP', sans-serif; -webkit-font-smoothing: antialiased; }
+  header.top { background: var(--navy); color: #fff; padding: 28px 20px 22px; position: sticky; top: 0; z-index: 20; box-shadow: 0 2px 10px rgba(0,0,0,0.12); }
+  .top-inner { max-width: 900px; margin: 0 auto; }
+  .back-btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 13.5px; font-weight: 700; color: #fff;
+    text-decoration: none; background: rgba(255,255,255,0.14);
+    padding: 8px 16px 8px 12px; border-radius: 999px; margin-bottom: 16px;
+    transition: background 0.15s ease;
+  }
+  .back-btn:hover { background: rgba(255,255,255,0.26); }
+  .back-btn svg { width: 15px; height: 15px; }
+  .eyebrow { font-size: 12px; letter-spacing: 0.14em; opacity: 0.65; font-weight: 500; margin-bottom: 4px; }
+  h1 { font-family: 'M PLUS Rounded 1c', sans-serif; font-weight: 800; font-size: 26px; margin: 0; letter-spacing: 0.02em; }
+  main { max-width: 900px; margin: 0 auto; padding: 30px 20px 60px; }
+
+  .empty-state {
+    background: var(--paper);
+    border: 1px dashed var(--line);
+    border-radius: 16px;
+    padding: 60px 30px;
+    text-align: center;
+    color: var(--ink-soft);
+  }
+  .empty-state .icon { font-size: 34px; margin-bottom: 14px; }
+  .empty-state h2 { font-family: 'M PLUS Rounded 1c', sans-serif; font-size: 17px; color: var(--ink); margin: 0 0 8px; }
+  .empty-state p { font-size: 13.5px; line-height: 1.7; margin: 0; }
+
+  table { width: 100%; border-collapse: collapse; background: var(--paper); border-radius: 14px; overflow: hidden; border: 1px solid var(--line); }
+  thead th { text-align: left; font-size: 12px; font-weight: 700; color: var(--ink-soft); background: #F3EEE3; padding: 12px 16px; }
+  tbody td { padding: 14px 16px; font-size: 13.5px; border-top: 1px solid var(--line); vertical-align: top; }
+  tbody tr:hover { background: #FBF8F1; }
+  .price-cell { font-family: 'M PLUS Rounded 1c', sans-serif; font-weight: 700; white-space: nowrap; }
+  .arrow { color: var(--ink-soft); margin: 0 6px; }
+  .diff-badge { display: inline-block; font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 999px; margin-left: 8px; }
+  .diff-up { color: var(--up); background: var(--up-bg); }
+  .diff-down { color: var(--down); background: var(--down-bg); }
+  .maker-badge { font-size: 11px; font-weight: 700; color: var(--navy); background: #E7ECF2; padding: 3px 9px; border-radius: 999px; }
+  footer { text-align: center; padding: 20px; font-size: 12px; color: var(--ink-soft); }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="top-inner">
+    <a class="back-btn" href="index.html">
+      <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15l-5-5 5-5"/></svg>
+      TOPに戻る
+    </a>
+    <div class="eyebrow">商品マスタ管理 ／ PRICE CHANGES</div>
+    <h1>売価変更一覧</h1>
+  </div>
+</header>
+
+<main>
+  <div class="empty-state" id="emptyState">
+    <div class="icon">🏷️</div>
+    <h2>まだ価格変更の記録がありません</h2>
+    <p>LINEなどで価格変更の連絡が来たら、Notionの「価格変更履歴」に登録してください。<br>登録されると、ここに一覧として表示されます。</p>
+  </div>
+
+  <table id="priceTable" style="display:none;">
+    <thead>
+      <tr>
+        <th>商品名</th>
+        <th>メーカー</th>
+        <th>価格変更</th>
+        <th>変更日</th>
+        <th>備考</th>
+      </tr>
+    </thead>
+    <tbody id="priceTableBody"></tbody>
+  </table>
+</main>
+
+<footer>商品マスタ管理ハブより ／ Notionのデータをもとに作成</footer>
+
+</body>
+</html>

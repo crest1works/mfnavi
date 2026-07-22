@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>M-Factory 売場ナビ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #FAF8F3;
+    --ink: #241F1C;
+    --ink-soft: #6b6259;
+    --paper: #FFFFFF;
+    --navy: #A8386E;
+    --tag-red: #D8472B;
+    --tag-red-dark: #B23A22;
+    --line: #E7E0D4;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font-family: 'Noto Sans JP', sans-serif; -webkit-font-smoothing: antialiased; }
+
+  header.hero {
+    background: var(--navy);
+    color: #fff;
+    padding: 44px 20px 60px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  header.hero::after {
+    content: "";
+    position: absolute;
+    right: -60px; bottom: -80px;
+    width: 260px; height: 260px;
+    background: var(--tag-red);
+    opacity: 0.14;
+    border-radius: 50%;
+  }
+  .eyebrow { font-size: 12px; letter-spacing: 0.18em; opacity: 0.7; font-weight: 500; margin-bottom: 10px; position: relative; }
+  h1 { font-family: 'M PLUS Rounded 1c', sans-serif; font-weight: 800; font-size: 30px; margin: 0; letter-spacing: 0.02em; position: relative; }
+
+  main { max-width: 780px; margin: -34px auto 0; padding: 0 20px 60px; position: relative; }
+
+  .notice-box {
+    background: var(--paper);
+    border-radius: 16px;
+    border: 1px solid var(--line);
+    padding: 22px 22px 8px;
+    box-shadow: 0 10px 26px rgba(36,31,28,0.08);
+    margin-bottom: 24px;
+  }
+  .notice-box h2 {
+    font-family: 'M PLUS Rounded 1c', sans-serif;
+    font-size: 15px;
+    margin: 0 0 16px;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .notice-list { display: flex; flex-direction: column; max-height: 210px; overflow-y: auto; padding-right: 4px; }
+  .notice-list::-webkit-scrollbar { width: 6px; }
+  .notice-list::-webkit-scrollbar-thumb { background: var(--line); border-radius: 999px; }
+  .notice-item {
+    display: flex; gap: 14px;
+    padding: 8px 0;
+    border-top: 1px solid var(--line);
+  }
+  .notice-item:first-child { border-top: none; }
+  .notice-date {
+    flex-shrink: 0; font-family: 'M PLUS Rounded 1c', sans-serif;
+    font-size: 12px; font-weight: 700; color: var(--ink-soft);
+    padding-top: 2px; width: 40px;
+  }
+  .notice-body { display: flex; flex-direction: column; gap: 4px; }
+  .notice-tag {
+    display: inline-block; width: fit-content;
+    font-size: 10.5px; font-weight: 700; padding: 2px 8px; border-radius: 999px;
+  }
+  .tag-new { color: #1F6F4A; background: #E1F0E7; }
+  .tag-soldout { color: #8A5A2B; background: #F3E6D8; }
+  .tag-info { color: var(--tag-red-dark); background: #F7E7E2; }
+  .notice-title { font-size: 13.5px; font-weight: 700; line-height: 1.5; }
+  .notice-title-link { color: var(--tag-red-dark); text-decoration: none; }
+  .notice-title-link:hover { text-decoration: underline; }
+  .notice-note { font-size: 12px; color: var(--ink-soft); line-height: 1.6; }
+  .notice-empty { font-size: 12.5px; color: var(--ink-soft); padding-bottom: 14px; }
+
+  .nav-grid { display: grid; grid-template-columns: 1fr; gap: 16px; }
+  @media (min-width: 640px) { .nav-grid { grid-template-columns: repeat(3, 1fr); } }
+
+  .nav-card {
+    background: var(--paper);
+    border-radius: 16px;
+    border: 1px solid var(--line);
+    padding: 26px 22px;
+    text-decoration: none;
+    color: var(--ink);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    box-shadow: 0 10px 26px rgba(36,31,28,0.08);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .nav-card:hover { transform: translateY(-4px); box-shadow: 0 16px 34px rgba(36,31,28,0.13); }
+  .nav-icon {
+    width: 46px; height: 46px;
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px;
+  }
+  .nav-card.catalog .nav-icon { background: #F3E6D8; }
+  .nav-card.price .nav-icon { background: #E4EFE9; }
+  .nav-card.drive .nav-icon { background: #F3E1EC; }
+  .nav-card h2 { font-family: 'M PLUS Rounded 1c', sans-serif; font-size: 16px; margin: 0; font-weight: 700; }
+  .nav-card p { font-size: 12.5px; color: var(--ink-soft); margin: 0; line-height: 1.6; }
+  .nav-card .go { margin-top: auto; font-size: 12px; font-weight: 700; color: var(--tag-red-dark); }
+
+  footer { text-align: center; padding: 20px; font-size: 12px; color: var(--ink-soft); }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="eyebrow">M-FACTORY</div>
+  <h1>売場ナビ</h1>
+</header>
+
+<main>
+  <div class="notice-box">
+    <h2>📢 お知らせ</h2>
+    <div class="notice-list">
+      
+      <div class="notice-item">
+        <div class="notice-date">07/17</div>
+        <div class="notice-body">
+          <span class="notice-tag tag-new">新商品</span>
+          <a class="notice-title notice-title-link" href="new-products.html?q=スマホポシェットマッシュ丸窓">スマホポシェットマッシュ丸窓 ›</a>
+          <div class="notice-note">モリッツ ／ ￥1,590</div>
+        </div>
+      </div>
+      <div class="notice-item">
+        <div class="notice-date">07/17</div>
+        <div class="notice-body">
+          <span class="notice-tag tag-soldout">完売</span>
+          <a class="notice-title notice-title-link" href="new-products.html?q=スヌーピー保冷保温レジかごバッグ">スヌーピー保冷保温レジかごバッグ ›</a>
+          
+        </div>
+      </div>
+      <div class="notice-item">
+        <div class="notice-date">07/17</div>
+        <div class="notice-body">
+          <span class="notice-tag tag-soldout">完売</span>
+          <a class="notice-title notice-title-link" href="new-products.html?q=スヌーピーストロー付タンブラー">スヌーピーストロー付タンブラー ›</a>
+          
+        </div>
+      </div>
+      <div class="notice-item">
+        <div class="notice-date">07/17</div>
+        <div class="notice-body">
+          <span class="notice-tag tag-soldout">完売</span>
+          <div class="notice-title">ラブブ</div>
+          
+        </div>
+      </div>
+      <div class="notice-item">
+        <div class="notice-date">07/17</div>
+        <div class="notice-body">
+          <span class="notice-tag tag-soldout">完売</span>
+          <a class="notice-title notice-title-link" href="new-products.html?q=肉まん">つぶつぶ肉まんスクイーズ／BIG／キラキラ肉まんBIG ›</a>
+          <div class="notice-note">3種とも完売</div>
+        </div>
+      </div>
+      <div class="notice-item">
+        <div class="notice-date">07/17</div>
+        <div class="notice-body">
+          <span class="notice-tag tag-soldout">完売</span>
+          <div class="notice-title">ノーマル肉まんスクイーズ</div>
+          <div class="notice-note">未登録商品（登録済みの3種とは別物）</div>
+        </div>
+      </div>
+      <div class="notice-item">
+        <div class="notice-date">07/09</div>
+        <div class="notice-body">
+          <span class="notice-tag tag-info">運用連絡</span>
+          <a class="notice-title notice-title-link" href="notice-seal.html">シール売り切り・夏物展開のお願い ›</a>
+          <div class="notice-note">キャラシール190/290円、その他100/190円、特価50円</div>
+        </div>
+      </div>
+      <div class="notice-item">
+        <div class="notice-date">07/07</div>
+        <div class="notice-body">
+          <span class="notice-tag tag-info">運用連絡</span>
+          <a class="notice-title notice-title-link" href="notice-softcarry.html">ソフトキャリー仕様変更のお知らせ（1輪→2輪） ›</a>
+          <div class="notice-note">全タイプ￥4,900（税込）で販売</div>
+        </div>
+      </div>
+      <div class="notice-item">
+        <div class="notice-date">07/03</div>
+        <div class="notice-body">
+          <span class="notice-tag tag-soldout">完売</span>
+          <div class="notice-title">肉まんスクイーズ</div>
+          <div class="notice-note">￥490（現行の肉まんスクイーズとは別商品）</div>
+        </div>
+      </div>
+      <div class="notice-item">
+        <div class="notice-date">07/03</div>
+        <div class="notice-body">
+          <span class="notice-tag tag-new">新商品</span>
+          <a class="notice-title notice-title-link" href="new-products.html?q=スヌーピーニットバッグ">スヌーピーニットバッグ ›</a>
+          <div class="notice-note">モアセブン ／ ￥1,790</div>
+        </div>
+      </div>
+      <div class="notice-item">
+        <div class="notice-date">07/01</div>
+        <div class="notice-body">
+          <span class="notice-tag tag-new">新商品</span>
+          <a class="notice-title notice-title-link" href="new-products.html?q=スヌーピーダイレクトボトル600②">スヌーピーダイレクトボトル600②　他7点 ›</a>
+          <div class="notice-note">モアセブン・センバドー・キーホルダー3種 他</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="nav-grid">
+    <a class="nav-card catalog" href="new-products.html">
+      <div class="nav-icon">🆕</div>
+      <h2>新商品カタログ</h2>
+      <p>今月登録された新商品を、画像つきで一覧できます。メーカー別の絞り込み・検索もできます。</p>
+      <span class="go">見る →</span>
+    </a>
+
+    <a class="nav-card price" href="price-changes.html">
+      <div class="nav-icon">🏷️</div>
+      <h2>売価変更一覧</h2>
+      <p>価格が変更された商品の履歴を確認できます。</p>
+      <span class="go">見る →</span>
+    </a>
+
+    <a class="nav-card drive" href="https://drive.google.com/drive/folders/1KXISIvUme7lIHLnKOztHc3Xcj0fXIUhv?usp=drive_link" target="_blank" rel="noopener">
+      <div class="nav-icon">🖼️</div>
+      <h2>POP画像フォルダ</h2>
+      <p>Googleドライブ内の、POP画像の保管フォルダを開きます。</p>
+      <span class="go">開く（Googleドライブ） ↗</span>
+    </a>
+  </div>
+</main>
+
+<footer>M-Factory 売場ナビ</footer>
+
+</body>
+</html>
